@@ -24,9 +24,13 @@ const addProduct = async (req, res) => {
 
     let imagesUrl = await Promise.all(
       images.map(async (item) => {
-        let result = await cloudinary.uploader.upload(item.path, {
-          resource_type: "image",
-        });
+        let result = await cloudinary.uploader.upload(
+          item.path,
+          {
+            resource_type: "image",
+          },
+          process.env.CLOUDINARY_FOLDER_NAME
+        );
         return result.secure_url;
       })
     );
