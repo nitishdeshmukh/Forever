@@ -10,13 +10,30 @@ import orderRouter from "./routes/orderRoute.js";
 
 // App Config
 const app = express();
-const port = process.env.PORT || 4000;
+const port = process.env.PORT;
 connectDB();
 connectCloudinary();
 
+const allowedOrigins = (process.env.ALLOWED_ORIGINS)
+  .split(",")
+  .map((o) => o.trim());
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    // Allow requests without an Origin header (like mobile apps or curl)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+    // Deny everything else
+    return callback(new Error("Not allowed by CORS"));
+  },
+  credentials: true,
+};
+
 // Middleware configuration
 app.use(express.json());
-app.use(cors());
+app.use(cors(corsOptions));
 
 // Api Endpoints
 app.use("/api/user", userRouter);
