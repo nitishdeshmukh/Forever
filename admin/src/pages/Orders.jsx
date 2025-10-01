@@ -108,7 +108,7 @@ const Orders = ({ token }) => {
               <p>Date : {new Date(order.date).toLocaleDateString()}</p>
             </div>
             <p>
-              {currency}
+              <span dangerouslySetInnerHTML={{ __html: currency }} />
               {order.amount}
             </p>
             <select

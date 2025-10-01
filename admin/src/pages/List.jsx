@@ -64,7 +64,7 @@ const List = ({ token }) => {
             <p>{item.name}</p>
             <p>{item.category}</p>
             <p>
-              {currency}
+              <span dangerouslySetInnerHTML={{ __html: currency }} />
               {item.price}
             </p>
             <p

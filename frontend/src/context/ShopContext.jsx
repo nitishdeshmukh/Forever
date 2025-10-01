@@ -6,7 +6,7 @@ import axios from "axios";
 export const ShopContext = createContext();
 
 const ShopContextProvider = (props) => {
-  const currency = "$";
+  const currency = "&#8377;";
   const delivery_fee = 10;
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const [search, setSearch] = useState("");
@@ -41,7 +41,7 @@ const ShopContextProvider = (props) => {
           { itemId, size },
           { headers: { token } }
         );
-        toast.success('Item Added to Cart');
+        toast.success("Item Added to Cart");
       } catch (error) {
         console.log(error);
         toast.error(error.message);

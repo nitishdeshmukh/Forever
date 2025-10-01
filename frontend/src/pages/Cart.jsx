@@ -78,7 +78,7 @@ const Cart = () => {
                   </p>
                   <div className="flex items-center gap-5 mt-2">
                     <p>
-                      {currency}
+                      <span dangerouslySetInnerHTML={{ __html: currency }} />
                       {productData.price}
                     </p>
                     <p className="px-2 sm:px-3 sm:py-1 border bg-slate-50">
@@ -91,7 +91,9 @@ const Cart = () => {
               {/* Quantity Controls with Plus/Minus */}
               <div className="flex items-center border border-gray-300 rounded w-fit">
                 <button
-                  onClick={() => decrementQuantity(item._id, item.size, item.quantity)}
+                  onClick={() =>
+                    decrementQuantity(item._id, item.size, item.quantity)
+                  }
                   className="px-2 sm:px-3 py-1 hover:bg-gray-100 text-lg font-medium border-r border-gray-300"
                   title="Decrease quantity"
                 >
@@ -101,7 +103,9 @@ const Cart = () => {
                   {item.quantity}
                 </span>
                 <button
-                  onClick={() => incrementQuantity(item._id, item.size, item.quantity)}
+                  onClick={() =>
+                    incrementQuantity(item._id, item.size, item.quantity)
+                  }
                   className="px-2 sm:px-3 py-1 hover:bg-gray-100 text-lg font-medium border-l border-gray-300"
                   title="Increase quantity"
                 >
