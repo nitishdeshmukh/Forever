@@ -1,4 +1,4 @@
-import { v2 as cloudinary } from "cloudinary";
+import { cloudinary } from "../config/cloudinary.js";
 import productModel from "../models/productModel.js";
 
 // Function for add product
@@ -13,6 +13,8 @@ const addProduct = async (req, res) => {
       sizes,
       bestseller,
     } = req.body;
+
+    // Assuming multer is used for file uploads and multiple images supported
     const image1 = req.files.image1?.[0] || null;
     const image2 = req.files.image2?.[0] || null;
     const image3 = req.files.image3?.[0] || null;
@@ -24,16 +26,14 @@ const addProduct = async (req, res) => {
 
     let imagesUrl = await Promise.all(
       images.map(async (item) => {
-        let result = await cloudinary.uploader.upload(
-          item.path,
-          {
-            resource_type: "image",
-          },
-          process.env.CLOUDINARY_FOLDER_NAME
-        );
+        let result = await cloudinary.uploader.upload(item.path, {
+          resource_type: "image",
+          folder: process.env.CLOUDINARY_FOLDER_NAME, // Folder inside Cloudinary
+        });
         return result.secure_url;
       })
     );
+
     const productData = {
       name,
       description,
@@ -45,7 +45,6 @@ const addProduct = async (req, res) => {
       image: imagesUrl,
       date: Date.now(),
     };
-    console.log(productData);
 
     const product = new productModel(productData);
     await product.save();
