@@ -11,10 +11,6 @@ const LatestCollection = () => {
       setLatestProducts(products.slice(0, 10));
     }
   }, [products]);
-  
-  if (!products || products.length === 0) {
-    return <div>Loading products...</div>;
-  }
 
   return (
     <div className="my-10">
@@ -26,6 +22,11 @@ const LatestCollection = () => {
           reprehenderit, eaque ducimus ut repudiandae veniam illo!
         </p>
       </div>
+      {(!products || products.length === 0) && (
+        <div className="h-[25vh] w-full flex justify-center items-center">
+          <span className="loader"></span>
+        </div>
+      )}
       {/* Rendering Products */}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 gap-y-6">
         {latestProducts.map((item, index) => (
